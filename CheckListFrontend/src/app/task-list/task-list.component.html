@@ -1,0 +1,48 @@
+<h1>CHECK LIST</h1>
+<div id="mainDiv">
+  <div class="searchBar">
+    <input type="search" placeholder="Search for a Task" #searchValue="ngModel" ngModel name="searchValue" (ngModelChange)="onSearch(searchValue.value)">
+  </div>
+  
+  <div *ngIf="tasks?.length !=0" class="taskList">
+      <table>
+        <tr *ngFor="let task of tasks; let i = index">
+            <td style="width: 3%;"> {{ i+1 }} </td>
+
+            <td *ngIf="editing==false || task.id!=id" style="width: 70%;"> 
+              <del *ngIf="task.done; else elseBlock" style="opacity: 50%;"> {{ task.task }} </del> 
+              <ng-template #elseBlock> {{ task.task }} </ng-template>
+            </td>
+
+            <td *ngIf="editing==true && task.id==id" type="text">
+              <input value="{{ task.task }}" id="textInput">
+            </td>
+
+           <!-- <td style="text-transform: uppercase;"> {{ task.done }} </td> -->
+
+            <td style="width: 10%;">
+              <button type="submit" (click)="onDeleteTask(task.id!)">Delete</button>
+              <button type="submit" (click)="onFinishTask(task.id!)">Done</button>
+              
+              <button *ngIf="editing==false" type="submit" (click)="onEdit(task.id!)">Edit</button>
+              <button *ngIf="editing==true" type="submit" (click)="onSaveEdit(task)">Save</button>
+            </td>
+          </tr>
+      </table>
+  </div>
+
+  <div *ngIf="tasks?.length == 0" class="taskList">
+    <h2>No tasks here!</h2>
+  </div>
+
+  <div class="addTask">
+    <form (ngSubmit)="onAddTask()">
+      <div>
+        <input type="text" [(ngModel)]="task.task"
+          placeholder="Enter a Task"
+          name="addTask">
+      </div>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+</div>

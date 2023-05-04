@@ -1,0 +1,45 @@
+.main-container{
+    height: 100%;
+}
+.sidenav-content {
+    width: 5%;
+    background-color: lightblue;
+    line-height: 30px;
+    align-content: center;
+    min-width: 100px;
+}
+
+h2 {
+    margin: 5%;
+    text-align: center;
+}
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+li{
+    margin: 5%;
+    width: 90%;
+}
+a:link, a:visited {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+
+  text-align: center;
+  text-decoration: none;
+
+  display: block;
+  
+}
+  
+a:hover, a:active {
+  background-color: green;
+  color: white;
+}
+
+button.menu-button {
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+}
