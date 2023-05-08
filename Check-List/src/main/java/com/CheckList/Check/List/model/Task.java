@@ -9,7 +9,24 @@ public class Task {
     private Long id;
     private String task;
     private Boolean done = false;
+    private String priority = "Low";
     private int position;
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
 
     public Task(){}
 

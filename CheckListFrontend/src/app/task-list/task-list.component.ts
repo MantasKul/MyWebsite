@@ -13,6 +13,7 @@ export class TaskListComponent {
   editing: boolean = false;
   id: number | undefined;
   newTask: Task | undefined;
+  priorityOptions = ["High", "Medium", "Low"];
 
   constructor(private taskService: TaskServiceService){ 
     this.task = new Task();
