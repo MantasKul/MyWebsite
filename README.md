@@ -1,11 +1,20 @@
 # Welcome
 
-This is a project I'm using to learn Full-stack
+A website project I'm using to learn full stack development. Every function that has been added was added with a purpose of learning something new.
 
-## What I'm using
+Currently there're two pages - an "About" page, and a "Check list" page.
 
-Using Angular for front end, Java Spring - back-end, and MySQL database
+The "About" page will simply have some text about the website, how to use, etc.
 
-## What I need to do
+The "Check list" page has a check list where you can add a new task to the list, edit it, delete it, mark it as completed. The tasks are saved in MySQL database.
 
-Make this readme more proper and informative
+## Technology used
+
+Back end: Spring Boot
+Front end: Angular
+Database: MySQL
+
+## Future plans
+
+- Add filters
+- Add a column for position instead of using ID of a task to sort it
