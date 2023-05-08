@@ -11,7 +11,9 @@ The "Check list" page has a check list where you can add a new task to the list,
 ## Technology used
 
 Back end: Spring Boot
+
 Front end: Angular
+
 Database: MySQL
 
 ## Future plans
