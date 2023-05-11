@@ -20,5 +20,5 @@ Database: MySQL
 
 ## Future plans
 
-- Add filters
-- Add a column for position instead of using ID of a task to sort it
+- Change the order of items to use "position" column instead of ID
+- Add sorting ( by position, priority, status)
