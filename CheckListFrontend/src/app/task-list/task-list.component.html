@@ -1,73 +1,117 @@
-<h1>CHECK LIST</h1>
-<div id="mainDiv">
-  <div class="searchBar">
-    <input type="search" placeholder="Search for a Task" #searchValue="ngModel" ngModel name="searchValue" (ngModelChange)="onSearch(searchValue.value)">
-  </div>
-  <!-- Column name table-->
-  <table>
-    <td style="width: 3%; font-weight: bold;">No.</td>
-    <td style="width: 5%; font-weight: bold;">Priority</td>
-    <td style="width: 70%; font-weight: bold;">Task</td>
-    <td style="width: 10%; font-weight: bold;">Editing</td>
-  </table>
-  <div *ngIf="tasks?.length !=0" class="taskList">
-      <table>
-        <tr *ngFor="let task of tasks; let i = index">
-          <!-- Task position number column-->
-            <td style="width: 3%;"> {{ i+1 }} </td>
-          <!-- Task priority column-->
-            <td *ngIf="editing==true && task.id==id" type="text" style="width: 5%;">
-              <select name="priority-select" [(ngModel)]="task.priority">
-                <option *ngFor="let option of priorityOptions">
-                  {{ option }}
-                </option>
-              </select>
-            </td>
-            <td *ngIf="editing==false || task.id!=id" style="width: 5%;"> {{task.priority }}</td>
-          <!-- Task column-->
-            <td *ngIf="editing==false || task.id!=id" style="width: 70%;"> 
-              <del *ngIf="task.done; else elseBlock" style="opacity: 50%;"> {{ task.task }} </del> 
-              <ng-template #elseBlock> {{ task.task }} </ng-template>
-            </td>
+<mat-sidenav-container id="main-div" [hasBackdrop]="false">
 
-            <td *ngIf="editing==true && task.id==id" type="text">
-              <input value="{{ task.task }}" id="textInput">
-            </td>
-
-           <!-- <td style="text-transform: uppercase;"> {{ task.done }} </td> -->
-
-           <!-- Delete, Done, Edit button column-->
-            <td style="width: 10%;">
-              <button type="submit" (click)="onDeleteTask(task.id!)">Delete</button>
-              <button type="submit" (click)="onFinishTask(task.id!)">Done</button>
-              
-              <button *ngIf="editing==false" type="submit" (click)="onEdit(task.id!)">Edit</button>
-              <button *ngIf="editing==true" type="submit" (click)="onSaveEdit(task)">Save</button>
-            </td>
-          </tr>
-      </table>
-  </div>
-
-  <div *ngIf="tasks?.length == 0" class="taskList">
-    <h2>No tasks here!</h2>
-  </div>
-
-  <div class="addTask">
-    <form (ngSubmit)="onAddTask()">
+  <!-- Filter side menu content-->
+  <mat-sidenav #sidenav mode="over" position="end">
+    <button (click)="sidenav.toggle()">></button>
+      <!-- Priority Filter-->
       <div>
-        <label>Priority: </label>
-        <select name="priority-select" [(ngModel)]="task.priority">
-          <option *ngFor="let option of priorityOptions">
-            {{ option }}
-          </option>
-        </select>
-        <label>Task: </label>
-        <input type="text" [(ngModel)]="task.task"
-          placeholder="Enter a Task"
-          name="addTask"
-          autocomplete="off">
+        <label>Priority</label>
+        <li>
+          <input type="checkbox" name="high" value="High"  (change)="checkCheckBoxvalue($event)">
+          <label for="any">High</label>
+        </li>
+        <li>
+          <input type="checkbox" name="medium" value="Medium"  (change)="checkCheckBoxvalue($event)">
+          <label for="done">Medium</label>
+        </li>
+        <li>
+          <input type="checkbox" name="low" value="Low"  (change)="checkCheckBoxvalue($event)">
+          <label for="not-done">Low</label>
+        </li>
       </div>
-      <button type="submit">Add</button>
-    </form>
-  </div>
-</div>
+      <!-- Status filter -->
+      <div>
+        <label>Status</label>
+        <select name="priority-filter" [(ngModel)]="statusFilter">
+          <option value="Any">Any</option>
+          <option value="true">Done</option>
+          <option value="false">Not done</option>
+        </select>
+      </div>
+      <button type="submit" (click)="onFilteredSearch(); sidenav.toggle()">Filter</button>
+  </mat-sidenav>
+
+  <!-- Main content -->
+  <mat-sidenav-content id="main-content">
+    <button (click)="sidenav.toggle()" id="nav-button">Filters</button>
+    <h1>CHECK LIST</h1>
+    <div class="searchBar">
+      <input type="search" placeholder="Search for a Task" #searchValue="ngModel" ngModel name="searchValue" (ngModelChange)="onSearch(searchValue.value)">
+    </div>
+    <!-- Column name table-->
+    <table>
+      <td style="width: 3%; font-weight: bold;">No.</td>
+      <td style="width: 5%; font-weight: bold;">Priority</td>
+      <td style="width: 70%; font-weight: bold;">Task</td>
+      <td style="width: 10%; font-weight: bold;">Editing</td>
+    </table>
+    <div *ngIf="tasks?.length !=0" class="taskList">
+        <table>
+          <tr *ngFor="let task of tasks; let i = index">
+            <!-- Task position number column-->
+              <td style="width: 3%;"> {{ i+1 }} </td>
+            <!-- Task priority column-->
+              <td *ngIf="editing==true && task.id==id" type="text" style="width: 5%;">
+                <select name="priority-select" [(ngModel)]="task.priority">
+                  <option *ngFor="let option of priorityOptions">
+                    {{ option }}
+                  </option>
+                </select>
+              </td>
+              <td *ngIf="editing==false || task.id!=id" style="width: 5%;"> {{task.priority }}</td>
+            <!-- Task column-->
+              <td *ngIf="editing==false || task.id!=id" style="width: 70%;"> 
+                <del *ngIf="task.status; else elseBlock" style="opacity: 50%;"> {{ task.task }} </del> 
+                <ng-template #elseBlock> {{ task.task }} </ng-template>
+              </td>
+
+              <td *ngIf="editing==true && task.id==id" type="text">
+                <input value="{{ task.task }}" id="textInput">
+              </td>
+
+            <!-- <td style="text-transform: uppercase;"> {{ task.done }} </td> -->
+
+            <!-- Delete, Done, Edit button column-->
+              <td style="width: 10%;">
+                <button type="submit" (click)="onDeleteTask(task.id!)">Delete</button>
+                <button type="submit" (click)="onFinishTask(task.id!)">Done</button>
+                
+                <button *ngIf="editing==false" type="submit" (click)="onEdit(task.id!)">Edit</button>
+                <button *ngIf="editing==true" type="submit" (click)="onSaveEdit(task)">Save</button>
+              </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Show a message if there're no tasks-->
+    <div *ngIf="tasks?.length == 0" class="taskList">
+      <h2>No tasks here!</h2>
+    </div>
+
+    <!-- Form to add new task -->
+    <div class="addTask">
+      <form (ngSubmit)="onAddTask()">
+        <div>
+          <label>Priority: </label>
+          <select name="priority-select" [(ngModel)]="task.priority">
+            <option *ngFor="let option of priorityOptions">
+              {{ option }}
+            </option>
+          </select>
+          <label>Task: </label>
+          <input type="text" [(ngModel)]="task.task"
+            placeholder="Enter a Task"
+            name="addTask"
+            autocomplete="off">
+        </div>
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+
+
+
+
+

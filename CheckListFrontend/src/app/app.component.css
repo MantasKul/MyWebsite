@@ -1,14 +1,7 @@
 .main-container{
-    height: 100%;
+    height: 100vw;
+    background: none;
 }
-.sidenav-content {
-    width: 5%;
-    background-color: lightblue;
-    line-height: 30px;
-    align-content: center;
-    min-width: 100px;
-}
-
 h2 {
     margin: 5%;
     text-align: center;
@@ -30,7 +23,6 @@ a:link, a:visited {
   text-decoration: none;
 
   display: block;
-  
 }
   
 a:hover, a:active {
@@ -38,8 +30,9 @@ a:hover, a:active {
   color: white;
 }
 
-button.menu-button {
+#navigation-menu-button {
     margin-top: 10px;
     width: 50px;
     height: 50px;
+    position: absolute;
 }

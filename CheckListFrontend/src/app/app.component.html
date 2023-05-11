@@ -1,20 +1,16 @@
-<mat-drawer-container class="main-container" autosize>
+<mat-sidenav-container class="main-container" autosize>
 
-    <mat-drawer #drawer class="sidenav-content" mode="side">
+    <mat-sidenav #sidenav id="navigation-menu" mode="side">
         <h2>Menu</h2>
         <ul>
-            <li><a routerLink="Task">Check List</a></li>
-            <li><a routerLink="About">About</a></li>
+            <li><a routerLink="About">Home</a></li>
+            <li><a routerLink="Task">Check List</a></li>   
         </ul>
-    </mat-drawer>
+    </mat-sidenav>
 
-    <div class="main-content">
-      <button type="button" mat-button (click)="drawer.toggle()" class="menu-button">
-        |||
-      </button>
-        <router-outlet></router-outlet>
-    </div>
-  
-</mat-drawer-container>
-  
-  
+    <mat-sidenav-content class="main-container">
+      <button (click)="sidenav.toggle()" id="navigation-menu-button">|||</button>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

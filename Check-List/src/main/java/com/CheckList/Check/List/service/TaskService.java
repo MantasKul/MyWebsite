@@ -29,11 +29,14 @@ public class TaskService {
     public void finishTask(Long id) {
         Task newTask = taskRepository.findById(id).get();
 
-        newTask.setDone(!newTask.getDone());
+        newTask.setStatus(!newTask.getStatus());
         taskRepository.save(newTask);
     }
 
     public Task updateTask(Task task) {
         return taskRepository.save(task);
     }
+
+    public List<Task> filteredTasks(String[] priority, boolean status) { return taskRepository.filteredTasks(priority, status); }
+    public List<Task> filteredTasks(String[] priority) { return taskRepository.filteredTasks(priority); }
 }

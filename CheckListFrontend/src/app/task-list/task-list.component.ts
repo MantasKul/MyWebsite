@@ -15,6 +15,9 @@ export class TaskListComponent {
   newTask: Task | undefined;
   priorityOptions = ["High", "Medium", "Low"];
 
+  priorityFilter: string[] = [];
+  statusFilter: string = "";
+
   constructor(private taskService: TaskServiceService){ 
     this.task = new Task();
   }
@@ -84,5 +87,28 @@ export class TaskListComponent {
     this.tasks = searchResults;
 
     if(searchResults.length === 0 || !searchValue) this.ngOnInit();
+  }
+
+  // Printing filtered tasks
+  onFilteredSearch() {
+    if(this.priorityFilter.length == 0) this.priorityFilter = ["high", "medium", "low"];
+
+    this.taskService.getFilteredTask(this.priorityFilter, this.statusFilter).subscribe(
+      data => {
+        this.tasks = data;
+      }
+    );
+  }
+  // Adding/Removing checkbox values for priority filtering
+  checkCheckBoxvalue(event: any) {
+    if(event.target.checked){
+      // Add value
+      this.priorityFilter.push(event.target.value);
+    }
+    if(!event.target.checked){
+      // Remove values
+      let index = this.priorityFilter.indexOf(event.target.value);
+      if( index !== -1) this.priorityFilter.splice(index, 1);
+    }
   }
 }

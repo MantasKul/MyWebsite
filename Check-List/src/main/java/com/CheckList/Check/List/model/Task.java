@@ -8,7 +8,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String task;
-    private Boolean done = false;
+    private boolean status = false;
     private String priority = "Low";
     private int position;
 
@@ -30,10 +30,10 @@ public class Task {
 
     public Task(){}
 
-    public Task(Long id, String task, Boolean done) {
+    public Task(Long id, String task, boolean status) {
         this.id = id;
         this.task = task;
-        this.done = done;
+        this.status = status;
     }
 
     public Long getId() {
@@ -52,11 +52,11 @@ public class Task {
         this.task = task;
     }
 
-    public Boolean getDone() {
-        return done;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setDone(Boolean done) {
-        this.done = done;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

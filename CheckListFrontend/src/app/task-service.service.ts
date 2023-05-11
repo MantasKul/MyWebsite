@@ -29,4 +29,8 @@ export class TaskServiceService {
   public editTask(task: Task): Observable<Task> {
     return this.http.put<Task>(`${this.url}/edit`, task);
   }
+
+  public getFilteredTask(priority: string[], status: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.url}/filteredTasks?priority=${priority}&status=${status}`);
+  }
 }

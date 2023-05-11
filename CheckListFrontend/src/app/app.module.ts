@@ -12,7 +12,7 @@ import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const appRout: Routes = [
-  {path: '', component: TaskListComponent}, // {path: '', comredirectTo: 'Task', pathMatch: 'full'},
+  {path: '', component: AboutComponent}, // {path: '', comredirectTo: 'Task', pathMatch: 'full'},
   {path: 'About', component: AboutComponent},
   {path: 'Task', component: TaskListComponent},
   {path: '**', component: NotFoundComponent}

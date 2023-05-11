@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -43,5 +44,28 @@ public class TaskResource {
     public ResponseEntity<?> editTask(@RequestBody Task task){
         Task newTask = taskService.updateTask(task);
         return new ResponseEntity<>(newTask, HttpStatus.OK);
+    }
+
+    @GetMapping("/filteredTasks")
+    public ResponseEntity<List<Task>> filteredTasks(@RequestParam(required = false) String[] priority, @RequestParam(required = false) String status) {
+        List<Task> tasks;
+
+        System.out.println(priority);
+        if(priority == null) priority = new String[] {"high", "medium", "low"};
+        if(status == null) status="any";
+        System.out.println(status + "--" + priority);
+
+        switch(status){
+            case "true":
+                tasks = taskService.filteredTasks(priority, true);
+                break;
+            case "false":
+                tasks = taskService.filteredTasks(priority, false);
+                break;
+            default:
+                tasks = taskService.filteredTasks(priority);
+        }
+
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 }
