@@ -3,10 +3,3 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.mat-sidenav {
-    width: 5%;
-    background-color: lightblue;
-    line-height: 30px;
-    align-content: center;
-    min-width: 100px;
-}

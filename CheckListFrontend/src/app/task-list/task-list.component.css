@@ -34,3 +34,14 @@ input {
 label {
     font-weight: bold;
 }
+.mat-sidenav {
+    width: 5%;
+    background-color: lightblue;
+    line-height: 30px;
+    align-content: center;
+    min-width: 200px;
+}
+input.chekbox-filter {
+    margin-right: -40%;
+    margin-left: -40%;
+}

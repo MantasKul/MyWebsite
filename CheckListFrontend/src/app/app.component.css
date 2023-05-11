@@ -36,3 +36,10 @@ a:hover, a:active {
     height: 50px;
     position: absolute;
 }
+.mat-sidenav {
+    width: 5%;
+    background-color: lightblue;
+    line-height: 30px;
+    align-content: center;
+    min-width: 100px;
+}

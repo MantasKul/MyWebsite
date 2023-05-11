@@ -5,23 +5,23 @@
     <button (click)="sidenav.toggle()">></button>
       <!-- Priority Filter-->
       <div>
-        <label>Priority</label>
+        <label>Priority: </label>
         <li>
-          <input type="checkbox" name="high" value="High"  (change)="checkCheckBoxvalue($event)">
+          <input type="checkbox" name="high" value="High" class="chekbox-filter" (change)="checkCheckBoxvalue($event)">
           <label for="any">High</label>
         </li>
         <li>
-          <input type="checkbox" name="medium" value="Medium"  (change)="checkCheckBoxvalue($event)">
+          <input type="checkbox" name="medium" value="Medium" class="chekbox-filter" (change)="checkCheckBoxvalue($event)">
           <label for="done">Medium</label>
         </li>
         <li>
-          <input type="checkbox" name="low" value="Low"  (change)="checkCheckBoxvalue($event)">
+          <input type="checkbox" name="low" value="Low" class="chekbox-filter" (change)="checkCheckBoxvalue($event)">
           <label for="not-done">Low</label>
         </li>
       </div>
       <!-- Status filter -->
       <div>
-        <label>Status</label>
+        <label>Status: </label>
         <select name="priority-filter" [(ngModel)]="statusFilter">
           <option value="Any">Any</option>
           <option value="true">Done</option>
