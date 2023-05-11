@@ -1,9 +1,0 @@
-Frontend:
-- Fix side nav menus
-- Make priority filter checkboxes
-- make status filter dorpbox
-
-Backend:
-- status="true/false" without priority variable doesn't work
-- Make sure multiple priority choices work
-- Test the query in general more
