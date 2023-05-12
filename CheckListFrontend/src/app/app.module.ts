@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { MatSortModule } from '@angular/material/sort'; 
 
 const appRout: Routes = [
   {path: '', component: AboutComponent}, // {path: '', comredirectTo: 'Task', pathMatch: 'full'},
@@ -31,7 +32,8 @@ const appRout: Routes = [
     FormsModule,
     MatSidenavModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRout)
+    RouterModule.forRoot(appRout),
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

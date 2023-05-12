@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Task } from '../task';
 import { TaskServiceService } from '../task-service.service';
+import { Sort } from '@angular/material/sort'
 
 @Component({
   selector: 'app-task-list',
@@ -17,6 +18,8 @@ export class TaskListComponent {
 
   priorityFilter: string[] = [];
   statusFilter: string = "";
+
+  sortedData: Task[] = [];
 
   constructor(private taskService: TaskServiceService){ 
     this.task = new Task();
@@ -110,5 +113,33 @@ export class TaskListComponent {
       let index = this.priorityFilter.indexOf(event.target.value);
       if( index !== -1) this.priorityFilter.splice(index, 1);
     }
+  }
+
+  onSortByNo() {
+    this.tasks.reverse();
+  }
+
+  sortData(sort: Sort) {
+    const data = this.tasks;
+    if (!sort.active || sort.direction === '') {
+      this.sortedData = data;
+      return;
+    }
+
+    this.sortedData = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'position':
+          return this.compare(a.position, b.position, isAsc);
+        case 'task':
+          return this.compare(a.task, b.task, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }
