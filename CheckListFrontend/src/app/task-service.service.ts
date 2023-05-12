@@ -20,8 +20,8 @@ export class TaskServiceService {
     return this.http.post<Task>(`${this.url}/add`, task);
   }
 
-  public deleteTask(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/delete/${id}`);
+  public deleteTask(position: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/delete/${position}`);
   }
   public finishTask(id: number): Observable<void> {
     return this.http.put<void>(`${this.url}/finish/${id}`, id);

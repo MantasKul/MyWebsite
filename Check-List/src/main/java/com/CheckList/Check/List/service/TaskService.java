@@ -2,6 +2,7 @@ package com.CheckList.Check.List.service;
 
 import com.CheckList.Check.List.model.Task;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.CheckList.Check.List.repository.TaskRepository;
 
@@ -15,20 +16,23 @@ public class TaskService {
     public TaskService(TaskRepository taskRepository) {this.taskRepository = taskRepository;}
 
     public Task addTask(Task task){
+        int lastPosition = taskRepository.getLastPosition();
+        task.setPosition(lastPosition+1);
         return taskRepository.save(task);
     }
 
     public List<Task> findAllTasks(){
-        return taskRepository.findAll();
+        return taskRepository.findAll(Sort.by(Sort.Direction.ASC, "position"));
     }
 
     public void deleteTask(Long id){
+        int deletedPosition = taskRepository.getDeletedPosition(id);
+        taskRepository.updatePositions(deletedPosition);
         taskRepository.deleteById(id);
     }
 
     public void finishTask(Long id) {
         Task newTask = taskRepository.findById(id).get();
-
         newTask.setStatus(!newTask.getStatus());
         taskRepository.save(newTask);
     }

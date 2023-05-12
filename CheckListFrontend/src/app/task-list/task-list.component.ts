@@ -38,8 +38,8 @@ export class TaskListComponent {
   }
 
   // Deleting entry by id
-  onDeleteTask(id: number): void{
-    this.taskService.deleteTask(id).subscribe(
+  onDeleteTask(position: number): void{
+    this.taskService.deleteTask(position).subscribe(
       () =>{
         this.ngOnInit();
       }
