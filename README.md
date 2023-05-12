@@ -20,5 +20,4 @@ Database: MySQL
 
 ## Future plans
 
-- Change the order of items to use "position" column instead of ID
 - Add sorting ( by position, priority, status)
