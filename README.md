@@ -20,4 +20,5 @@ Database: MySQL
 
 ## Future plans
 
-- Add sorting ( by position, priority, status)
+- Sorting by position and task has been added. Should add sorting by priority
+- Add pages to tasks, limit ~5 tasks per page
