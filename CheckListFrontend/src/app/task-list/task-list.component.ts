@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Task } from '../task';
 import { TaskServiceService } from '../task-service.service';
 import { Sort } from '@angular/material/sort'
+import { MatPaginator } from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-task-list',
@@ -113,10 +115,6 @@ export class TaskListComponent {
       let index = this.priorityFilter.indexOf(event.target.value);
       if( index !== -1) this.priorityFilter.splice(index, 1);
     }
-  }
-
-  onSortByNo() {
-    this.tasks.reverse();
   }
 
   sortData(sort: Sort) {

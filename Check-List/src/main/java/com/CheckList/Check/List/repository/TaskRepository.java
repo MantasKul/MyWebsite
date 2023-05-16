@@ -38,4 +38,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     int updatePositions(
             @Param("deletedPosition") int deletedPosition
     );
+
+    @Query(value = "SELECT COUNT(*) FROM task", nativeQuery = true)
+    int getCount();
 }

@@ -16,7 +16,9 @@ public class TaskService {
     public TaskService(TaskRepository taskRepository) {this.taskRepository = taskRepository;}
 
     public Task addTask(Task task){
-        int lastPosition = taskRepository.getLastPosition();
+        int lastPosition;
+        if(taskRepository.getCount() == 0) lastPosition = 0;
+        else lastPosition = taskRepository.getLastPosition();
         task.setPosition(lastPosition+1);
         return taskRepository.save(task);
     }

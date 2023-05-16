@@ -5,12 +5,14 @@ import { FormsModule }   from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { MatSortModule } from '@angular/material/sort'; 
+import { MatPaginatorModule } from '@angular/material/paginator'; 
+import { MatTableModule } from '@angular/material/table'  
 
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { MatSortModule } from '@angular/material/sort'; 
 
 const appRout: Routes = [
   {path: '', component: AboutComponent}, // {path: '', comredirectTo: 'Task', pathMatch: 'full'},
@@ -33,7 +35,9 @@ const appRout: Routes = [
     MatSidenavModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(appRout),
-    MatSortModule
+    MatSortModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
