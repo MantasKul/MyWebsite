@@ -39,6 +39,7 @@
       <input type="search" placeholder="Search for a Task" #searchValue="ngModel" ngModel name="searchValue" (ngModelChange)="onSearch(searchValue.value)">
     </div>
 
+  <!-- Old table
   <table matSort (matSortChange)="sortData($event)">
     <tr>
       <td mat-sort-header="position" style="width: 3%; font-weight: bold;">No.</td>
@@ -49,9 +50,9 @@
   
   <tr *ngIf="tasks?.length !=0" class="taskList">
     <tr *ngFor="let task of tasks; let i = index">
-        <!-- Task position number column-->
+        <!- - Task position number column- ->
           <td style="width: 3%;"> {{ task.position }} </td>
-         <!-- Task priority column-->
+         <!- - Task priority column- ->
           <td *ngIf="editing==true && task.id==id" type="text" style="width: 5%;">
             <select name="priority-select" [(ngModel)]="task.priority">
               <option *ngFor="let option of priorityOptions">
@@ -60,7 +61,7 @@
             </select>
           </td>
           <td *ngIf="editing==false || task.id!=id" style="width: 5%;"> {{task.priority }}</td>
-        <!-- Task column-->
+        <!- - Task column- ->
           <td *ngIf="editing==false || task.id!=id" style="width: 70%;"> 
             <del *ngIf="task.status; else elseBlock" style="opacity: 50%;"> {{ task.task }} </del> 
             <ng-template #elseBlock> {{ task.task }} </ng-template>
@@ -70,9 +71,9 @@
             <input value="{{ task.task }}" id="textInput">
           </td>
 
-        <!-- <td style="text-transform: uppercase;"> {{ task.done }} </td> -->
+        <!- - <td style="text-transform: uppercase;"> {{ task.done }} </td> - ->
 
-        <!-- Delete, Done, Edit button column-->
+        <!- - Delete, Done, Edit button column- ->
           <td style="width: 10%;">
             <button type="submit" (click)="onDeleteTask(task.id!)">Delete</button>
             <button type="submit" (click)="onFinishTask(task.id!)">Done</button>
@@ -82,7 +83,59 @@
           </td>
     </tr>
   </table>
+-->
 
+  <!-- Task table -->
+  <table mat-table matSort [dataSource]="tasks" (matSortChange)="sortData($event)">
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <td mat-cell *matCellDef="let element" style="width: 3%"> {{element.position}}</td>
+    </ng-container>
+    <!-- Priority Column -->
+    <ng-container matColumnDef="priority" >
+      <th mat-header-cell *matHeaderCellDef>Priority</th>
+      <td mat-cell *matCellDef="let element" style="width: 5%;"> 
+        <div *ngIf="!editing || element.id!=editingId">
+          {{ element.priority }}
+        </div>
+        <div *ngIf="editing && element.id==editingId">
+          <select [(ngModel)]="priorityValue">
+            <option *ngFor="let option of priorityOptions">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+      </td>
+    </ng-container>
+    <!-- Task Column -->
+    <ng-container matColumnDef="task">
+      <th mat-header-cell *matHeaderCellDef>Task</th>
+      <td mat-cell *matCellDef="let element" style="width: 70%;">
+        <div *ngIf="editing==false || element.id!=editingId">
+          <del *ngIf="task.status; else elseBlock" style="opacity: 50%;"> {{ element.task }} </del> 
+          <ng-template #elseBlock> {{ element.task }} </ng-template>
+        </div>
+        <div *ngIf="editing && element.id==editingId">
+          <input type="text" value="{{element.task}}" id="textInput">
+        </div>
+      </td>
+    </ng-container>
+    <!-- Editing button Column -->
+    <ng-container matColumnDef="Buttons">
+      <th mat-header-cell *matHeaderCellDef>Button</th>
+      <td mat-cell *matCellDef="let row" style="width: 10%;">
+        <button type="submit" (click)="onDeleteTask(row.id!)">Delete</button>
+        <button type="submit" (click)="onFinishTask(row.id!)">Done</button>
+
+        <button *ngIf="editing==false" type="submit" (click)="onEdit(row.id!)">Edit</button>
+        <button *ngIf="editing==true" type="submit" (click)="onSaveEdit(row)">Save</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 
     <!-- Show a message if there're no tasks-->
     <div *ngIf="tasks?.length == 0" class="taskList">

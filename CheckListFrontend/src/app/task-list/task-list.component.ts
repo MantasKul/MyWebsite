@@ -1,9 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Task } from '../task';
 import { TaskServiceService } from '../task-service.service';
 import { Sort } from '@angular/material/sort'
-import { MatPaginator } from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-task-list',
@@ -12,16 +10,20 @@ import {MatTableDataSource} from '@angular/material/table';
 })
 export class TaskListComponent {
   tasks: Task[] = []; //=[]
+  displayedColumns: string[] = ['position', 'priority', 'task', 'Buttons'];
   task: Task;
   editing: boolean = false;
-  id: number | undefined;
   newTask: Task | undefined;
   priorityOptions = ["High", "Medium", "Low"];
-
   priorityFilter: string[] = [];
   statusFilter: string = "";
 
   sortedData: Task[] = [];
+
+  // Editing values
+  editingId: number;
+  priorityValue: string;
+  taskInput: string;
 
   constructor(private taskService: TaskServiceService){ 
     this.task = new Task();
@@ -63,14 +65,15 @@ export class TaskListComponent {
   // Enabling editing by id
   onEdit(id: number): void {
     this.editing = !this.editing;
-    this.id = id;
+    this.editingId = id;
   }
 
   onSaveEdit(task: Task): void{
     this.editing = !this.editing;
-    this.id = -1;
+    this.editingId = -1;
 
     this.newTask = task;
+    this.newTask.priority = this.priorityValue;
     this.newTask.task = (<HTMLInputElement>document.getElementById('textInput')).value;
 
     this.taskService.editTask(this.newTask).subscribe(
