@@ -1,40 +1,54 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Task } from '../task';
 import { TaskServiceService } from '../task-service.service';
 import { Sort } from '@angular/material/sort'
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-task-list',
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
-export class TaskListComponent {
-  tasks: Task[] = []; //=[]
+export class TaskListComponent implements OnInit, AfterViewInit {
+  tasks: Task[] = [];
   displayedColumns: string[] = ['position', 'priority', 'task', 'Buttons'];
   task: Task;
-  editing: boolean = false;
   newTask: Task | undefined;
+
+  // Variables used for filtering
   priorityOptions = ["High", "Medium", "Low"];
   priorityFilter: string[] = [];
   statusFilter: string = "";
 
   sortedData: Task[] = [];
 
-  // Editing values
+  // Variables used when editting the task
+  editing: boolean = false;
   editingId: number;
   priorityValue: string;
   taskInput: string;
+
+  dataSource = new MatTableDataSource<Task>(this.tasks);
+  @ViewChild('paginator') paginator: MatPaginator;
 
   constructor(private taskService: TaskServiceService){ 
     this.task = new Task();
   }
 
+  ngAfterViewInit(): void {
+      this.dataSource = new MatTableDataSource(this.tasks);
+      this.dataSource.paginator = this.paginator;
+  }
+
   ngOnInit() {
     this.taskService.getAllTasks().subscribe(data => {
       this.tasks = data;
+      this.dataSource.data = data;
     })
   }
 
+  // Adding new task
   onAddTask() {
     this.taskService.addTask(this.task).subscribe(
       () =>{
@@ -67,7 +81,7 @@ export class TaskListComponent {
     this.editing = !this.editing;
     this.editingId = id;
   }
-
+  // Saving the edits
   onSaveEdit(task: Task): void{
     this.editing = !this.editing;
     this.editingId = -1;
