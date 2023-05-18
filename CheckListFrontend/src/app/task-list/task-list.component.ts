@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Task } from '../task';
 import { TaskServiceService } from '../task-service.service';
-import { Sort } from '@angular/material/sort'
+import { MatSort, Sort } from '@angular/material/sort'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -21,16 +21,20 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   priorityFilter: string[] = [];
   statusFilter: string = "";
 
-  sortedData: Task[] = [];
-
   // Variables used when editting the task
   editing: boolean = false;
   editingId: number;
   priorityValue: string;
   taskInput: string;
 
+  // Variables used for pagination
   dataSource = new MatTableDataSource<Task>(this.tasks);
   @ViewChild('paginator') paginator: MatPaginator;
+
+  // Variables used for sorting
+  @ViewChild('sortTable') sortTable = new MatSort();
+  sortedData: Task[] = [];
+
 
   constructor(private taskService: TaskServiceService){ 
     this.task = new Task();
@@ -39,6 +43,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
       this.dataSource = new MatTableDataSource(this.tasks);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sortTable;
   }
 
   ngOnInit() {
@@ -132,29 +137,5 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       let index = this.priorityFilter.indexOf(event.target.value);
       if( index !== -1) this.priorityFilter.splice(index, 1);
     }
-  }
-
-  sortData(sort: Sort) {
-    const data = this.tasks;
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
-
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'position':
-          return this.compare(a.position, b.position, isAsc);
-        case 'task':
-          return this.compare(a.task, b.task, isAsc);
-        default:
-          return 0;
-      }
-    });
-  }
-
-  compare(a: number | string, b: number | string, isAsc: boolean) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 }

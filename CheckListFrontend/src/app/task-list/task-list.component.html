@@ -86,15 +86,15 @@
 -->
 
   <!-- Task table using materiable table -->
-  <table mat-table matSort [dataSource]="dataSource" (matSortChange)="sortData($event)">
+  <table mat-table [dataSource]="dataSource" matSort #sortTable="matSort">
     <!-- Position Column -->
     <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
       <td mat-cell *matCellDef="let element" style="width: 3%"> {{element.position}}</td>
     </ng-container>
     <!-- Priority Column -->
-    <ng-container matColumnDef="priority" >
-      <th mat-header-cell *matHeaderCellDef>Priority</th>
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
       <td mat-cell *matCellDef="let element" style="width: 5%;"> 
         <div *ngIf="!editing || element.id!=editingId">
           {{ element.priority }}
@@ -113,7 +113,7 @@
       <th mat-header-cell *matHeaderCellDef>Task</th>
       <td mat-cell *matCellDef="let element" style="width: 70%;">
         <div *ngIf="editing==false || element.id!=editingId">
-          <del *ngIf="task.status; else elseBlock" style="opacity: 50%;"> {{ element.task }} </del> 
+          <del *ngIf="task.status; else elseBlock" style="opacity: 50%;"> DONE {{ element.task }} </del> 
           <ng-template #elseBlock> {{ element.task }} </ng-template>
         </div>
         <div *ngIf="editing && element.id==editingId">
@@ -123,7 +123,7 @@
     </ng-container>
     <!-- Editing button Column -->
     <ng-container matColumnDef="Buttons">
-      <th mat-header-cell *matHeaderCellDef>Button</th>
+      <th mat-header-cell *matHeaderCellDef>Edit</th>
       <td mat-cell *matCellDef="let row" style="width: 10%;">
         <button type="submit" (click)="onDeleteTask(row.id!)">Delete</button>
         <button type="submit" (click)="onFinishTask(row.id!)">Done</button>
@@ -139,7 +139,7 @@
   <mat-paginator
     #paginator
     [length]="tasks?.length"
-    [pageSize]="2"
+    [pageSize]="6"
     [pageSizeOptions]="[2, 4, 6]"
     showFirstLastButtons
     aria-label="select page"
