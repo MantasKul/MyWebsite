@@ -20,5 +20,4 @@ Database: MySQL
 
 ## Future plans
 
-- After changing the table to use material table sorting isn't working anymore, fix that
 - Improve overall styling, at the moment table's editing (priority drop-down and task input field) are not using material variation and doesn't fit the style. Change either styling or use material variation for those parts so it would fit
