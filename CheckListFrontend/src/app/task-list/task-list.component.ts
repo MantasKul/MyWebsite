@@ -1,9 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Task } from '../task';
 import { TaskServiceService } from '../task-service.service';
-import { MatSort, Sort } from '@angular/material/sort'
+import { MatSort } from '@angular/material/sort'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
@@ -35,13 +36,11 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   @ViewChild('sortTable') sortTable = new MatSort();
   sortedData: Task[] = [];
 
-
   constructor(private taskService: TaskServiceService){ 
     this.task = new Task();
   }
 
   ngAfterViewInit(): void {
-      this.dataSource = new MatTableDataSource(this.tasks);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sortTable;
   }
@@ -102,8 +101,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     );
   }
 
-  // At the moment when searching for a string that doesn't match any task
-  // it will display all tasks although the array is empty
+  // Search function
   onSearch(searchValue: string): void {
     var searchResults: Task[] = [];
     
@@ -111,7 +109,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       if(task.task?.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1) searchResults.push(task);
     }
 
-    this.tasks = searchResults;
+    this.dataSource.data = searchResults;
 
     if(searchResults.length === 0 || !searchValue) this.ngOnInit();
   }

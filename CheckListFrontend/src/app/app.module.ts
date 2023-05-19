@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule }   from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort'; 
@@ -11,6 +12,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table'  
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select'; 
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field'; 
 
 import { AppComponent } from './app.component';
 import { TaskListComponent } from './task-list/task-list.component';
@@ -42,7 +45,10 @@ const appRout: Routes = [
     MatPaginatorModule,
     MatTableModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

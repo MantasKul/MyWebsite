@@ -11,20 +11,15 @@ h1 {
 #main-content {
     padding-right: 20vw;
 }
-/*table {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-}*/
 td {
     background-color: lightgray;
     border-bottom: 1px solid black;
     text-align: left;
     padding-left: 5px;
 }
-input {
+mat-form-field.search-input, input {
     box-sizing: border-box;
-    min-width: 100%;
+    width: 100%;
 }
 #nav-button {
     position: absolute;
@@ -44,16 +39,4 @@ label {
 input.chekbox-filter {
     margin-right: -40%;
     margin-left: -40%;
-}
-
-mat-select{
-    background-color: red;
-    width: 100%;
-}
-mat-option {
-    background-color: green;
-    font-size: 80%;
-    text-align: center;
-    height: 10%;
-    padding: 0;
 }
