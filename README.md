@@ -20,4 +20,4 @@ Database: MySQL
 
 ## Future plans
 
-- Improve overall styling, at the moment table's editing (priority drop-down and task input field) are not using material variation and doesn't fit the style. Change either styling or use material variation for those parts so it would fit
+- Decide on styling and make it consistent. Either use or don't use Angular's material version of tags, at the moment it's mixed and doesn't look good.
