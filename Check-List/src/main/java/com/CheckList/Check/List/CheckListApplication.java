@@ -12,6 +12,7 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CheckListApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(CheckListApplication.class, args);
 	}

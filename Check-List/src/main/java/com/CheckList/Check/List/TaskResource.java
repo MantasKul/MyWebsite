@@ -25,7 +25,7 @@ public class TaskResource {
     @GetMapping("/all")
     public ResponseEntity<List<Task>> getAllTasks(){
         List<Task> tasks = taskService.findAllTasks();
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return ResponseEntity.ok(tasks);//new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
