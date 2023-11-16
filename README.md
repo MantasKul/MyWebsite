@@ -17,7 +17,3 @@ Back end: Spring Boot
 Front end: Angular
 
 Database: MySQL
-
-## Future plans
-
-- Decide on styling and make it consistent. Either use or don't use Angular's material version of tags, at the moment it's mixed and doesn't look good.
